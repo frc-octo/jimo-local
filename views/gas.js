@@ -65,7 +65,10 @@ google.script.run = {
   }
 };
 
+google.script.host = {
+  close: function() {
+    window.close();
+  }
+};
+
 google.script.run.init();
-
-
-google.script.host.close = function() {};

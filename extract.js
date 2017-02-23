@@ -3,10 +3,10 @@ const dateFormat = require('dateformat');
 
 require('./gas.js');
 
-require('./scripts/api.gs');
-require('./scripts/jira.gs');
-require('./scripts/utils.gs');
-require('./scripts/fields.gs');
+require('./jimo/api.gs');
+require('./jimo/jira.gs');
+require('./jimo/utils.gs');
+require('./jimo/fields.gs');
 
 
 module.exports = {
@@ -39,7 +39,7 @@ module.exports = {
         contents: data
       };
 
-      fs.writeFileSync('./data/${day} - data.json', JSON.stringify(extract));
+      fs.writeFileSync(`./data/${day} - data.json`, JSON.stringify(extract));
     } catch (e) { ret = e; }
     
     return (typeof ret == 'object') ? JSON.stringify(ret) : ret;

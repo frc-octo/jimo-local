@@ -1,8 +1,8 @@
 require('./gas.js');
 
-require('./scripts/api.gs');
-require('./scripts/jira.gs');
-require('./scripts/fields.gs');
+require('./jimo/api.gs');
+require('./jimo/jira.gs');
+require('./jimo/fields.gs');
 
 const express = require('express');
 const bodyParser = require("body-parser");
@@ -13,7 +13,7 @@ app.set('port', (process.env.PORT || 8080));
 app.set('view engine', 'ejs');
 
 app.use(express.static('views'));
-app.use(express.static('scripts'));
+app.use(express.static('jimo'));
 app.use(bodyParser.json());
 
 // ROOT -------------------------------
@@ -29,6 +29,8 @@ app.get('/', (request, response) => {
   var path = './data/';
   
   files.forEach((filename) => {
+    if (filename.match(/\.json$/) == null) return;
+    
     var filepath = path + filename;
     var data = fs.readFileSync(filepath).toString('utf8');
     var json = JSON.parse(data);
