@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--
+<link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons.css">
+-->
+
+  <link rel="icon" type="image/png" href="icon.png" />
+  <title>jimo local</title>
+</head>
+
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+
+    font-family: sans-serif;
+    font-size: 11pt;
+    color: #444;
+  }
+
+  body {
+    width: 100%;
+    min-height: 100%;
+    
+    text-align: center;
+  }
+  
+  button {
+    background: #aaa;
+    color: #fff;
+    border: 1px solid rgba(0,0,0,0.25);
+    border-radius: 2px;
+    padding: 5px 10px;
+    font-size: 9pt;
+    font-weight: bold;
+  }
+  button.blue {
+    background: #409ced;
+  }
+  button.green {
+    background: #6caa17;
+  }
+
+  h1 {
+    overflow: hidden;
+
+    font-size: 2em;
+    font-weight: 200;
+
+    color: #666;
+    text-align: center;
+
+    margin: 0;
+    padding: 20pt;
+    
+    background: #fcfcfc;
+    border-bottom: 2px solid #449955;
+
+  }
+  
+  h1 img {
+    vertical-align: middle;
+    width: 48px;
+    height: 48px;
+    margin-right: 10px;
+  }
+  
+  h1 b {
+    color: #449955;
+  }
+  
+  h2 {
+    font-size: 1.5em;
+    font-weight: 200;
+
+    color: #449955;
+    margin: 30pt 5pt 10pt;
+  }
+  
+  #upload>button {
+    display: block;
+    margin: 5pt auto;
+  }
+  
+  #url {
+    display: block;
+    width: 400pt;
+    margin: 5pt auto;
+    font-family: monospace;
+  }
+  
+  #working {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    
+    background: rgba(255,255,255,0.75);
+    color: #4d90fe;
+    
+    font-size: 2.5em;
+    font-weight: 200;
+    line-height: 1.5em;
+    text-align: center;
+  }
+  #working>div {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  body.working #working { display: block; }
+</style>
+  
+<script>
+  function send(action, data) {
+    document.body.className = 'working';
+    window.location = window.location.origin + '/' + action + '?param=' + data;
+  };
+</script>
+
+<body>
+  <div id="working"><div>work in progress...<br><small>please wait</small></div></div>
+  
+  <h1><img src="icon.png" width=48 /><b>ji</b>ra <b>mo</b>nitoring <b>local</b></h1>
+
+  <h2>Extractions Setup</h2>
+  <div>
+    <button class="" onclick="window.open('configure.html','_blank', 'toolbar=no,scrollbars=no,location=no,resizable=no,width=600,height=600');">Setup access</button>
+    <button class="blue" onclick="send('extract', null)">Run an extract</button>
+  </div>
+
+  <h2>Upload Setup</h2>
+  <input id="url" type="text" value="<%= url %>">
+  <div>
+    <button class="blue" onclick="send('save', document.getElementById('url').value)">Save and test</button>
+    <button class="green" onclick="send('configure', null)">Send configuration</button>
+  </div>
+  
+  <h2>Extractions Upload</h2>
+  <div id="upload">
+    <% files.forEach(function(file){ %>
+    <button onclick="send('update', '<%= file.path %>')">Send extraction of <b><%= file.date %></b></button>
+    <% }); %>
+  </div>
+</body>
+</html>

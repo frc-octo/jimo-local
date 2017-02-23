@@ -1,0 +1,19 @@
+{
+  "name": "jimo-local",
+  "version": "0.4.2",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:": "node server",
+    "extract": "node extract"
+  },
+  "author": "François CHAZAL (frc@octo)",
+  "license": "OCTO",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "dateformat": "^2.0.0",
+    "ejs": "^2.5.5",
+    "express": "^4.14.0",
+    "sync-request": "^3.0.1"
+  }
+}
