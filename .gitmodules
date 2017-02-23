@@ -1,0 +1,3 @@
+[submodule "jimo"]
+	path = jimo
+	url = https://github.com/frc-octo/jimo.git
