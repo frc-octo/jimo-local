@@ -17,21 +17,55 @@ global.Utilities = {
   }
 };
 
+global.Crypto = {
+  algorithm: 'aes-256-ctr',
+  password: 'FHI4EVER',
+  
+  encrypt: function(text) {
+    var crypto = require('crypto');
+    var cipher = crypto.createCipher(Crypto.algorithm,Crypto.password)
+    var crypted = cipher.update(text,'utf8','hex')
+    crypted += cipher.final('hex');
+    return crypted;
+  },
+ 
+  decrypt: function(text) {
+    var crypto = require('crypto');
+    var decipher = crypto.createDecipher(Crypto.algorithm,Crypto.password)
+    var dec = decipher.update(text,'hex','utf8')
+    dec += decipher.final('utf8');
+    return dec;
+  } 
+};
+
 global.PropertiesService = {
   file: './config.json',
   memory: null,
   
+  getFileContent: function() {
+    var data = fs.readFileSync(PropertiesService.file);
+    var content = Crypto.decrypt(data.toString());
+
+    return content;
+  },
+  
+  setFileContent: function(content) {
+    var data = Crypto.encrypt(content);
+    fs.writeFileSync(PropertiesService.file, data);
+  },
+  
   read: function() {
     if (PropertiesService.memory == null) {
-      var str = fs.readFileSync(PropertiesService.file).toString();
-      PropertiesService.memory = JSON.parse(str);
+      var content = PropertiesService.getFileContent();
+      PropertiesService.memory = JSON.parse(content);
     }
     
     return PropertiesService.memory;
   },
   
   save: function() {
-    fs.writeFileSync(PropertiesService.file, JSON.stringify(PropertiesService.memory));
+    var content = JSON.stringify(PropertiesService.memory)
+    PropertiesService.setFileContent(content);
   },
   
   properties: {

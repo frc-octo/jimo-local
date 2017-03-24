@@ -24,8 +24,8 @@ module.exports = {
     
     try {
       var url = PropertiesService.properties.getProperty('upload_url');
-      var data = fs.readFileSync(`./config.json`).toString('utf8');
-      
+      var data = PropertiesService.getFileContent();
+
       ret = sendAction(url, 'configure', JSON.parse(data));
     } catch (e) { ret = e.message; }
     
