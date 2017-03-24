@@ -1,8 +1,8 @@
 require('./gas.js');
 
-require('./jimo/api.gs');
-require('./jimo/jira.gs');
-require('./jimo/fields.gs');
+require('./moji/api.gs');
+require('./moji/jira.gs');
+require('./moji/fields.gs');
 
 const express = require('express');
 const bodyParser = require("body-parser");
@@ -13,7 +13,7 @@ app.set('port', (process.env.PORT || 8080));
 app.set('view engine', 'ejs');
 
 app.use(express.static('views'));
-app.use(express.static('jimo'));
+app.use(express.static('moji'));
 app.use(bodyParser.json());
 
 // ROOT -------------------------------

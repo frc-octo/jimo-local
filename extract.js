@@ -3,10 +3,10 @@ const dateFormat = require('dateformat');
 
 require('./gas.js');
 
-require('./jimo/api.gs');
-require('./jimo/jira.gs');
-require('./jimo/utils.gs');
-require('./jimo/fields.gs');
+require('./moji/api.gs');
+require('./moji/jira.gs');
+require('./moji/utils.gs');
+require('./moji/fields.gs');
 
 
 module.exports = {
